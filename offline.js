@@ -1,0 +1,5 @@
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  navigator.serviceWorker.register('./sw.js').catch(() => {
+    // The landing page remains available through the network.
+  });
+}
