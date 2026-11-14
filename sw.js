@@ -1,6 +1,6 @@
-const CACHE = 'oyenku-site-v5:' + self.registration.scope;
+const CACHE = 'oyenku-site-v6:' + self.registration.scope;
 const root = self.registration.scope;
-const site = ['./','index.html','privacy.html','terms.html','style.css','site.js','offline.js','assets/oyen.png'];
+const site = ['./','index.html','privacy.html','terms.html','style.css','site.js','offline.js','mobile-demo.js','mobile-demo.css','assets/oyen.png','assets/demo/bank.webp','assets/demo/business.webp','assets/demo/cash.webp','assets/demo/education.webp','assets/demo/entertainment.webp','assets/demo/food.webp','assets/demo/gift.webp','assets/demo/health.webp','assets/demo/other.webp','assets/demo/salary.webp','assets/demo/shopping.webp','assets/demo/transport.webp'];
 const url = path => new URL(path, root).href;
 
 self.addEventListener('install', event => {
@@ -17,6 +17,7 @@ self.addEventListener('activate', event => {
     await caches.delete('oyenku-site-v2:' + root);
     await caches.delete('oyenku-site-v3:' + root);
     await caches.delete('oyenku-site-v4:' + root);
+    await caches.delete('oyenku-site-v5:' + root);
     await self.clients.claim();
   })());
 });
