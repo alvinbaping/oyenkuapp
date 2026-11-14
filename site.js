@@ -1,7 +1,6 @@
 const examples = {
   chat: ['CHAT', 'Beli kopi susu 25 ribu.', 'Kopi susu', 'Rp25.000', 'Tulis seperti ngobrol. Periksa nama dan nominal sebelum simpan.'],
   voice: ['SUARA', '“Tadi makan seblak sepuluh ribu.”', 'Seblak', 'Rp10.000', 'Ucapkan transaksinya, lalu lengkapi draf jika ada detail yang kurang.'],
-  scan: ['STRUK', 'Kedai Rasa · Total bayar 42.000', 'Kedai Rasa', 'Rp42.000', 'Foto atau pilih struk. Cocokkan nama toko dan total dengan struknya.'],
   manual: ['MANUAL', 'Nama: Parkir · Dompet: Tunai', 'Parkir', 'Rp5.000', 'Isi detail langsung saat kamu sudah tahu nominal dan dompetnya.'],
 };
 const buttons = [...document.querySelectorAll('[data-demo]')];
@@ -15,13 +14,28 @@ for (const button of buttons) {
     });
   });
 }
-const releaseUrl = '';
-if (releaseUrl) {
-  const link = document.querySelector('#release-link');
-  link.href = releaseUrl;
-  link.hidden = false;
-  document.querySelector('#release-status').hidden = true;
-}
+const releaseApi = 'https://api.github.com/repos/alvinbaping/oyenkuapp/releases';
+const releaseStatus = document.querySelector('#release-status');
+fetch(releaseApi)
+  .then(response => {
+    if (!response.ok) throw new Error('GitHub Releases unavailable');
+    return response.json();
+  })
+  .then(releases => {
+    const apk = releases
+      .filter(release => !release.draft)
+      .flatMap(release => release.assets)
+      .find(asset => asset.name === 'Oyenku-Beta.apk' && asset.state === 'uploaded');
+    if (!apk) return;
+    for (const link of document.querySelectorAll('[data-apk-link]')) {
+      link.href = apk.browser_download_url;
+      link.hidden = false;
+    }
+    releaseStatus.hidden = true;
+  })
+  .catch(() => {
+    releaseStatus.textContent = 'Status APK beta belum bisa dicek. Coba muat ulang.';
+  });
 
 const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const artwork = document.querySelector('.hero-art');
@@ -34,7 +48,6 @@ const greetings = [
   'Mau aku bantu catat pengeluaranmu?',
   'Habis jajan apa hari ini?',
   'Kopi 25 ribu? Yuk, catat.',
-  'Struknya masih ada? Coba scan.',
   'Lagi nabung buat apa?',
   'Baru gajian? Yuk langsung catat!',
   'Males ngetik? Bilang aja tadi habis berapa. Aku dengerin.',

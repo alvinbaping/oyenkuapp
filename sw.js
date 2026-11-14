@@ -1,4 +1,4 @@
-const CACHE = 'oyenku-site-v4:' + self.registration.scope;
+const CACHE = 'oyenku-site-v5:' + self.registration.scope;
 const root = self.registration.scope;
 const site = ['./','index.html','privacy.html','terms.html','style.css','site.js','offline.js','assets/oyen.png'];
 const url = path => new URL(path, root).href;
@@ -16,6 +16,7 @@ self.addEventListener('activate', event => {
     }
     await caches.delete('oyenku-site-v2:' + root);
     await caches.delete('oyenku-site-v3:' + root);
+    await caches.delete('oyenku-site-v4:' + root);
     await self.clients.claim();
   })());
 });

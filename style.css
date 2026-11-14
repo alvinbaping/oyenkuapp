@@ -21,3 +21,10 @@
 .oyen-button[data-expression="shy"] [data-face="shy"] { visibility: visible; }
 .oyen-button[data-expression="thinking"] .oyen-pupils { translate: 2px -2px; }
 .oyen-button[data-expression="surprised"] .oyen-pupils { scale: .9; transform-box: fill-box; transform-origin: center; }
+
+.store-preview { margin-top: 1.35rem; }
+.store-preview p { margin: 0 0 .55rem; font-size: .8rem; }
+.store-preview ul { display: flex; flex-wrap: wrap; gap: .55rem; list-style: none; padding: 0; margin: 0; }
+.store-preview li { display: inline-flex; align-items: center; gap: .4rem; padding: .4rem .65rem; border: 1px solid #67442c40; border-radius: .5rem; font-size: .8rem; }
+.store-preview svg { width: 1rem; height: 1rem; flex: none; }
+#release-link[hidden], #release-status[hidden] { display: none; }
